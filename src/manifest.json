@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "WIX FIX",
   "version": "1.0.0",
-  "description": "",
+  "description": "Chrome extension fixing little bugs on WIX editor",
   "author": "alexanderz@wix.com",
   "homepage_url": "https://github.com/shoonia/wix-micro-fix.git",
   "icons": {},
