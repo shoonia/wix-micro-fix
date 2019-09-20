@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "WIX FIX",
+  "name": "Wix micor fix",
   "version": "1.0.0",
   "description": "Chrome extension fixing little bugs on WIX editor",
   "author": "alexanderz@wix.com",
@@ -16,7 +16,13 @@
       ],
       "js": [
         "content.js"
+      ],
+      "css": [
+        "inject.css"
       ]
     }
+  ],
+  "web_accessible_resources": [
+    "inject.css"
   ]
 }
