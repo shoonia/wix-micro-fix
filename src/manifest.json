@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "WIX FIX",
+  "version": "1.0.0",
+  "description": "",
+  "author": "alexanderz@wix.com",
+  "homepage_url": "https://github.com/shoonia/wix-micro-fix.git",
+  "icons": {},
+  "permissions": [
+    "https://editor.wix.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://editor.wix.com/html/editor/web/renderer/edit/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ]
+}
