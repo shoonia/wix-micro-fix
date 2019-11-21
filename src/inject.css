@@ -1,9 +1,9 @@
-/* FIX: file tree jumps */
-.wix-code-ide-tree .dropdown > .dd > .selected-container {
-  padding: 0 !important;
-}
-
 /* FIX: editor toolbar icon `?` */
 svg > text[font-family="HelveticaNeueW01-55Roman"] {
   font-family: 'HelveticaNeueW01-55Roma' !important;
+}
+
+/* FIX: editor height */
+.editor-content-wrapper {
+	top: 30px !important;
 }
