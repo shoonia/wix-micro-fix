@@ -4,7 +4,7 @@ Chrome extension fixing little bugs on WIX editor
 
 ### FIX: Editor body height
 
-![](image/fix-2.jpg)
+![](image/fix-2.JPG)
 
 ## This was fixed
 
