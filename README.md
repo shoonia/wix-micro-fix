@@ -7,7 +7,7 @@ Chrome extension fixing little bugs on WIX editor
 ## This was fixed
 
 ### ~~Editor body height~~
-![](image/fix-2.jpg)
+![](image/fix.jpg)
 
 ### ~~file tree jumps~~
 ![](image/jump.gif)
