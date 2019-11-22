@@ -3,7 +3,3 @@ svg > text[font-family="HelveticaNeueW01-55Roman"] {
   font-family: 'HelveticaNeueW01-55Roma' !important;
 }
 
-/* FIX: editor height */
-.editor-content-wrapper {
-	top: 30px !important;
-}
