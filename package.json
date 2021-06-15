@@ -1,6 +1,6 @@
 {
   "name": "wix-micro-fix",
-  "description": "Chrome extension fixing little bugs on WIX editor",
+  "description": "Chrome extension fixing little bugs on WIX",
   "version": "2.1.0",
   "main": "src/index.js",
   "repository": "https://github.com/shoonia/wix-micro-fix.git",
@@ -10,6 +10,6 @@
     "zip": "node zip.js"
   },
   "devDependencies": {
-    "cross-zip": "^2.1.6"
+    "cross-zip": "^4.0.0"
   }
 }
