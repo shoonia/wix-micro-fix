@@ -1,8 +1,18 @@
-const path = require('path');
-const zip = require('cross-zip');
-const package = require('./package.json');
+import { resolve } from 'path';
+import { createRequire } from 'module';
+import { zipSync } from 'cross-zip';
 
-const srcDir = path.join(__dirname, 'src');
-const zipFile = path.join(__dirname, `${package.name}@${package.version}.zip`);
+const require = createRequire(import.meta.url);
 
-zip.zipSync(srcDir, zipFile);
+const pkg = require('./package.json');
+const manifest = require('./src/manifest.json');
+
+if (pkg.version !== manifest.version) {
+  console.error(`\n\nInvalid version number in manifest: ${manifest.version}\n\n`);
+  process.exit(1);
+}
+
+const srcDir = resolve('./src');
+const zipFile = resolve(`./${pkg.name}@${pkg.version}.zip`);
+
+zipSync(srcDir, zipFile);

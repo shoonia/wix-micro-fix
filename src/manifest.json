@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Wix micro fix",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Chrome extension fixing little bugs on WIX editor",
   "author": "alexanderz@wix.com",
   "homepage_url": "https://github.com/shoonia/wix-micro-fix.git",

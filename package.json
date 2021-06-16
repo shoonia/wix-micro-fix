@@ -1,8 +1,9 @@
 {
   "name": "wix-micro-fix",
   "description": "Chrome extension fixing little bugs on WIX",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "main": "src/index.js",
+  "type": "module",
   "repository": "https://github.com/shoonia/wix-micro-fix.git",
   "author": "alexanderz@wix.com",
   "license": "MIT",
