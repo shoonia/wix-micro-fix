@@ -10,22 +10,22 @@
     "48": "icons/48.png"
   },
   "permissions": [
-    "https://editor.wix.com/*"
+    "tabs",
+    "https://support.wix.com/*"
   ],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons/16.png"
+  },
   "content_scripts": [
     {
       "matches": [
-        "https://editor.wix.com/html/editor/web/renderer/edit/*"
+        "https://support.wix.com/*"
       ],
       "js": [
         "content.js"
-      ],
-      "css": [
-        "inject.css"
       ]
     }
   ],
-  "web_accessible_resources": [
-    "inject.css"
-  ]
+  "web_accessible_resources": []
 }
