@@ -1,3 +1,21 @@
+/** @type {Partial<CSSStyleDeclaration>} */
+const warnStyle = {
+  outline: 'rgb(255 193 7 / 80%) solid 10px',
+  backgroundColor: 'rgb(255 235 60 / 45%)',
+};
+
+/** @type {Partial<CSSStyleDeclaration>} */
+const errorStyle = {
+  outline: 'rgb(235 30 80 / 80%) solid 10px',
+  backgroundColor: 'rgba(255, 0, 0, 0.4)',
+};
+
+/**
+ *
+ * @param {string} path
+ * @param {Map<string, number>} cache
+ * @returns {Promise<number>}
+ */
 const getHttpCode = async (path, cache) => {
   if (cache.has(path)) {
     return cache.get(path);
@@ -20,12 +38,19 @@ const getHttpCode = async (path, cache) => {
   }
 }
 
+/**
+ *
+ * @param {string} href
+ * @returns {string}
+ */
 const getPath = (href) => {
   return new URL(href).pathname.slice(12);
 }
 
 const checkLinks = async () => {
+  /** @type {Map<HTMLElement, string>} */
   const nodeMap = new Map();
+  /** @type {Map<string, number>} */
   const statusCache = new Map();
 
   const currentPath = getPath(location.href);
@@ -44,25 +69,17 @@ const checkLinks = async () => {
     const code = await getHttpCode(path, statusCache);
 
     if (code === 404) {
-      Object.assign(node.style, {
-        outline: 'rgb(235 30 80 / 80%) solid 10px',
-        backgroundColor: 'rgba(255, 0, 0, 0.4)',
-      });
+      Object.assign(node.style, errorStyle);
     }
 
     if (code === 301) {
-      Object.assign(node.style, {
-        outline: 'rgb(255 193 7 / 80%) solid 10px',
-        backgroundColor: 'rgb(255 235 60 / 45%)',
-      })
+      Object.assign(node.style, warnStyle);
     }
   }
 }
 
 chrome.runtime.onMessage.addListener((event) => {
-  switch (event.type) {
-    case '>_CHECK_LINKS': {
-      return checkLinks();
-    }
+  if (event.type === '>_CHECK_LINKS') {
+    checkLinks();
   }
 });

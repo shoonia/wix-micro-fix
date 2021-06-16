@@ -11,6 +11,7 @@
     "zip": "node zip.js"
   },
   "devDependencies": {
+    "@types/chrome": "^0.0.145",
     "cross-zip": "^4.0.0"
   }
 }

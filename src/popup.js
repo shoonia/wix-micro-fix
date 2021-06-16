@@ -1,11 +1,15 @@
 const one = (selector) => document.querySelector(selector);
 
+/**
+ * @returns {Promise<chrome.tabs.Tab[]>}
+ */
 const getTabs = () => {
   return new Promise((resolve) => {
     chrome.tabs.query({ active: true, currentWindow: true }, resolve);
   });
 }
 
+/** @type {HTMLButtonElement} */
 const button = one('#checkLinks');
 
 button.addEventListener('click', async () => {

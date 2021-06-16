@@ -1,0 +1,17 @@
+{
+  "allowJs": true,
+  "compilerOptions": {
+    "checkJs": true,
+    "module": "es2020",
+    "moduleResolution": "node",
+    "target": "es2020",
+    "lib": [
+      "es2020",
+      "dom",
+      "scripthost"
+    ]
+  },
+  "include": [
+    "src/**/*.js"
+  ]
+}
