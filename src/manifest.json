@@ -1,7 +1,7 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Wix micro fix",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Chrome extension fixing little bugs on WIX editor",
   "author": "alexanderz@wix.com",
   "homepage_url": "https://github.com/shoonia/wix-micro-fix.git",
@@ -10,10 +10,12 @@
     "48": "icons/48.png"
   },
   "permissions": [
-    "tabs",
+    "tabs"
+  ],
+  "host_permissions": [
     "https://support.wix.com/*"
   ],
-  "browser_action": {
+  "action": {
     "default_popup": "popup.html",
     "default_icon": "icons/16.png"
   },
