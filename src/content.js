@@ -11,62 +11,71 @@ const errorStyle = {
 };
 
 /**
- *
- * @param {string} path
- * @param {Map<string, number>} cache
- * @returns {Promise<number>}
+ * @returns {(path: string) => Promise<number>}
  */
-const getHttpCode = async (path, cache) => {
-  if (cache.has(path)) {
-    return cache.get(path);
-  }
+const createHttpClient = () => {
+  /** @type {Map<string, number>} */
+  const cache = new Map();
 
-  const apiUrl = `https://support.wix.com/api/v1/helpcenter/articles/uri/${path}?locale=en`;
+  return async (path) => {
+    if (cache.has(path)) {
+      return cache.get(path);
+    }
 
-  try {
-    const { ok, redirected, status } = await fetch(apiUrl, {
-      method: 'head',
-    });
+    const apiUrl = `https://support.wix.com/api/v1/helpcenter/articles/uri/${path}?locale=en`;
 
-    const code = (ok && redirected) ? 301 : status;
+    try {
+      const { ok, redirected, status } = await fetch(apiUrl, {
+        method: 'head',
+      });
 
-    cache.set(path, code);
+      const code = (ok && redirected) ? 301 : status;
 
-    return code;
-  } catch (error) {
-    return -1;
-  }
-}
+      cache.set(path, code);
+
+      return code;
+    } catch (error) {
+      return -1;
+    }
+  };
+};
 
 /**
- *
  * @param {string} href
  * @returns {string}
  */
 const getPath = (href) => {
   return new URL(href).pathname.slice(12);
-}
+};
 
-const checkLinks = async () => {
-  /** @type {Map<HTMLElement, string>} */
-  const nodeMap = new Map();
-  /** @type {Map<string, number>} */
-  const statusCache = new Map();
-
+/**
+ * @typedef {Map<HTMLAnchorElement, string>} LinkMap
+ * @returns {LinkMap}
+ */
+const getArticleLinks = () => {
+  /** @type {LinkMap} */
+  const linkMap = new Map();
   const currentPath = getPath(location.href);
 
-  Array.from(document.links).forEach((node) => {
-    if (node.href.startsWith('https://support.wix.com/en/article/')) {
-      const path = getPath(node.href);
+  document.querySelectorAll('a').forEach((a) => {
+    if (a.href.startsWith('https://support.wix.com/en/article/')) {
+      const path = getPath(a.href);
 
       if (currentPath !== path) {
-        nodeMap.set(node, path);
+        linkMap.set(a, path);
       }
     }
   });
 
-  for (const [node, path] of nodeMap) {
-    const code = await getHttpCode(path, statusCache);
+  return linkMap;
+};
+
+const checkLinks = async () => {
+  const linkMap = getArticleLinks();
+  const getHttpStatus = createHttpClient();
+
+  for (const [node, path] of linkMap) {
+    const code = await getHttpStatus(path);
 
     if (code === 404) {
       Object.assign(node.style, errorStyle);
@@ -76,7 +85,7 @@ const checkLinks = async () => {
       Object.assign(node.style, warnStyle);
     }
   }
-}
+};
 
 chrome.runtime.onMessage.addListener((event) => {
   if (event.type === '>_CHECK_LINKS') {
