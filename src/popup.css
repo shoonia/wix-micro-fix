@@ -8,10 +8,14 @@ body {
   font-size: 16px;
   font-family: Helvetica, sans-serif;
   width: 150px;
-  height: 150px;
+  height: 200px;
   display: flex;
+  flex-direction: column;
+  gap: 15px;
   align-items: center;
   justify-content: center;
+  background-color: #F0F4F7;
+  color: #162D3D;
 }
 
 a,
@@ -38,4 +42,41 @@ a:hover,
 button:hover {
   background-color: #3885ff;
   border-color: #3885ff;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: block;
+  overflow: auto;
+  width: 100%;
+}
+
+tr {
+  background-color: #F0F4F7;
+  border-top: 1px solid #7A92A5;
+}
+
+th,
+td {
+  border: 1px solid #7A92A5;
+  padding: 6px 13px;
+  text-align: center;
+}
+
+.rapport {
+  display: flex;
+  gap: 15px;
+}
+
+#ok {
+  color: #44823F;
+}
+
+#warn {
+  color: #C68801;
+}
+
+#error {
+  color: #D6453D;
 }

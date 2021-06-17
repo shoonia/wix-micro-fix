@@ -70,25 +70,49 @@ const getArticleLinks = () => {
   return linkMap;
 };
 
+/**
+ * @returns {Promise<TRapport>}
+ */
 const checkLinks = async () => {
   const linkMap = getArticleLinks();
   const getHttpStatus = createHttpClient();
 
+  /** @type {TRapport} */
+  const rapport = {
+    all: linkMap.size,
+    ok: 0,
+    warn: 0,
+    error: 0
+  };
+
   for (const [node, path] of linkMap) {
     const code = await getHttpStatus(path);
 
+    if (code === 200) {
+      rapport.ok++;
+    }
+
     if (code === 404) {
       Object.assign(node.style, errorStyle);
+      rapport.error++;
     }
 
     if (code === 301) {
       Object.assign(node.style, warnStyle);
+      rapport.warn++;
     }
   }
+
+  return rapport;
 };
 
-chrome.runtime.onMessage.addListener((event) => {
+chrome.runtime.onMessage.addListener(async (event) => {
   if (event.type === '>_CHECK_LINKS') {
-    checkLinks();
+    const rapport = await checkLinks()
+
+    chrome.runtime.sendMessage({
+      type: '>_RAPPORT',
+      detail: rapport,
+    });
   }
 });

@@ -1,5 +1,9 @@
 const one = (selector) => document.querySelector(selector);
 
+const setText = (selector, text) => {
+  one(selector).textContent = text;
+};
+
 /**
  * @returns {Promise<chrome.tabs.Tab[]>}
  */
@@ -18,5 +22,19 @@ button.addEventListener('click', async () => {
   const [tab] = await getTabs();
 
   button.disabled = false;
-  chrome.tabs.sendMessage(tab.id, { type: '>_CHECK_LINKS' });
+  chrome.tabs.sendMessage(tab.id, {
+    type: '>_CHECK_LINKS'
+  });
+});
+
+chrome.runtime.onMessage.addListener((event = {}) => {
+  if (event.type === '>_RAPPORT') {
+    /** @type {TRapport} */
+    const rapport = event.detail;
+
+    setText('#all', rapport.all);
+    setText('#ok', rapport.ok);
+    setText('#warn', rapport.warn);
+    setText('#error', rapport.error);
+  }
 });
