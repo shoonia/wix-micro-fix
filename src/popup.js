@@ -1,7 +1,10 @@
 const one = (selector) => document.querySelector(selector);
+const all = (selector) => document.querySelectorAll(selector);
 
 const setText = (selector, text) => {
-  one(selector).textContent = text;
+  all(selector).forEach((i) => {
+    i.textContent = `${text}`;
+  })
 };
 
 /**
@@ -18,23 +21,27 @@ const button = one('#checkLinks');
 
 button.addEventListener('click', async () => {
   button.disabled = true;
+  setText('[data-rapport]', '-');
 
   const [tab] = await getTabs();
 
-  button.disabled = false;
-  chrome.tabs.sendMessage(tab.id, {
+  const data = {
     type: '>_CHECK_LINKS'
+  };
+
+  chrome.tabs.sendMessage(tab.id, data, () => {
+    button.disabled = false;
   });
 });
 
 chrome.runtime.onMessage.addListener((event = {}) => {
   if (event.type === '>_RAPPORT') {
     /** @type {TRapport} */
-    const rapport = event.detail;
+    const { all, ok, warn, error } = event.detail ;
 
-    setText('#all', rapport.all);
-    setText('#ok', rapport.ok);
-    setText('#warn', rapport.warn);
-    setText('#error', rapport.error);
+    setText('#all', all);
+    setText('#ok', ok);
+    setText('#warn', warn);
+    setText('#error', error);
   }
 });
