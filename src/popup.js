@@ -4,7 +4,7 @@ const all = (selector) => document.querySelectorAll(selector);
 const setText = (selector, text) => {
   all(selector).forEach((i) => {
     i.textContent = `${text}`;
-  })
+  });
 };
 
 /**
@@ -14,7 +14,7 @@ const getTabs = () => {
   return new Promise((resolve) => {
     chrome.tabs.query({ active: true, currentWindow: true }, resolve);
   });
-}
+};
 
 /** @type {HTMLButtonElement} */
 const button = one('#checkLinks');
@@ -37,7 +37,7 @@ button.addEventListener('click', async () => {
 chrome.runtime.onMessage.addListener((event = {}) => {
   if (event.type === '>_RAPPORT') {
     /** @type {TRapport} */
-    const { all, ok, warn, error } = event.detail ;
+    const { all, ok, warn, error } = event.detail;
 
     setText('#all', all);
     setText('#ok', ok);

@@ -106,9 +106,9 @@ const checkLinks = async () => {
   return rapport;
 };
 
-chrome.runtime.onMessage.addListener(async (event) => {
+chrome.runtime.onMessage.addListener(async (event = {}) => {
   if (event.type === '>_CHECK_LINKS') {
-    const rapport = await checkLinks()
+    const rapport = await checkLinks();
 
     chrome.runtime.sendMessage({
       type: '>_RAPPORT',

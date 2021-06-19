@@ -8,10 +8,12 @@
   "author": "alexanderz@wix.com",
   "license": "MIT",
   "scripts": {
+    "lint": "eslint src/**/*.js",
     "zip": "node zip.js"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.145",
-    "cross-zip": "^4.0.0"
+    "cross-zip": "^4.0.0",
+    "eslint": "^7.29.0"
   }
 }
