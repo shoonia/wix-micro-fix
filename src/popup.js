@@ -11,9 +11,7 @@ const setText = (selector, text) => {
  * @returns {Promise<chrome.tabs.Tab[]>}
  */
 const getTabs = () => {
-  return new Promise((resolve) => {
-    chrome.tabs.query({ active: true, currentWindow: true }, resolve);
-  });
+  return chrome.tabs.query({ active: true, currentWindow: true });
 };
 
 /** @type {HTMLButtonElement} */
@@ -26,7 +24,7 @@ button.addEventListener('click', async () => {
   const [tab] = await getTabs();
 
   const data = {
-    type: '>_CHECK_LINKS'
+    type: '>_CHECK_LINKS',
   };
 
   chrome.tabs.sendMessage(tab.id, data, () => {

@@ -82,7 +82,7 @@ const checkLinks = async () => {
     all: linkMap.size,
     ok: 0,
     warn: 0,
-    error: 0
+    error: 0,
   };
 
   for (const [node, path] of linkMap) {
