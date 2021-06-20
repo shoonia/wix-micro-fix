@@ -10,9 +10,6 @@
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "globals": {
-    "$w": "readonly"
-  },
   "rules": {
     "linebreak-style": "off",
     "no-console": "off",
@@ -41,6 +38,10 @@
         "named": "never",
         "asyncArrow": "always"
       }
+    ],
+    "comma-dangle": [
+      "error",
+      "always-multiline"
     ]
   }
 }
