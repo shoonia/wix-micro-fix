@@ -49,7 +49,7 @@ button:disabled {
   user-select: none;
   pointer-events: none;
   filter: grayscale(100%);
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 table {
