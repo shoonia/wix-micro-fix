@@ -17,12 +17,16 @@ const createHttpClient = () => {
   /** @type {Map<string, number>} */
   const cache = new Map();
 
+  const host = (location.host === 'wix.wixanswers.com')
+    ? 'wix.wixanswers.com'
+    : 'support.wix.com';
+
   return async (path) => {
     if (cache.has(path)) {
       return cache.get(path);
     }
 
-    const apiUrl = `https://support.wix.com/api/v1/helpcenter/articles/uri/${path}?locale=en`;
+    const apiUrl = `https://${host}/api/v1/helpcenter/articles/uri/${path}?locale=en`;
 
     try {
       const { ok, redirected, status } = await fetch(apiUrl, {

@@ -13,7 +13,8 @@
     "tabs"
   ],
   "host_permissions": [
-    "https://*.wix.com/*"
+    "https://*.wix.com/*",
+    "https://wix.wixanswers.com/*"
   ],
   "action": {
     "default_popup": "popup.html",
@@ -22,7 +23,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://*.wix.com/*"
+        "https://*.wix.com/*",
+        "https://wix.wixanswers.com/*"
       ],
       "js": [
         "content.js"
