@@ -110,13 +110,21 @@ const checkLinks = async () => {
   return rapport;
 };
 
-chrome.runtime.onMessage.addListener(async (event = {}) => {
-  if (event.type === '>_CHECK_LINKS') {
-    const rapport = await checkLinks();
+chrome.runtime.onMessage.addListener(async ({ type } = {}) => {
+  switch (type) {
+    case '>_CHECK_LINKS': {
+      const rapport = await checkLinks();
 
-    chrome.runtime.sendMessage({
-      type: '>_RAPPORT',
-      detail: rapport,
-    });
+      return chrome.runtime.sendMessage({
+        type: '>_RAPPORT',
+        detail: rapport,
+      });
+    }
+
+    case '>_PING': {
+      return chrome.runtime.sendMessage({
+        type: '>_ENABLE',
+      });
+    }
   }
 });

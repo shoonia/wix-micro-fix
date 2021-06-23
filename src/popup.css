@@ -44,6 +44,14 @@ button:hover {
   border-color: #3885ff;
 }
 
+.disabled,
+button:disabled {
+  user-select: none;
+  pointer-events: none;
+  filter: grayscale(100%);
+  opacity: 0.6;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;

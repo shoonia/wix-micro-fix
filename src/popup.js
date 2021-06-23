@@ -1,6 +1,9 @@
 const one = (selector) => document.querySelector(selector);
 const all = (selector) => document.querySelectorAll(selector);
 
+/** @type {HTMLButtonElement} */
+const button = one('#checkLinks');
+
 const setText = (selector, text) => {
   all(selector).forEach((i) => {
     i.textContent = `${text}`;
@@ -8,38 +11,57 @@ const setText = (selector, text) => {
 };
 
 /**
- * @returns {Promise<chrome.tabs.Tab[]>}
+ * @param {boolean} isDisabled
  */
-const getTabs = () => {
-  return chrome.tabs.query({ active: true, currentWindow: true });
+const togglePage = (isDisabled) => {
+  button.disabled = isDisabled;
+  document.body.classList.toggle('disabled', isDisabled);
 };
 
-/** @type {HTMLButtonElement} */
-const button = one('#checkLinks');
+/**
+ *
+ * @param {{ type: string, detail?: any }} data
+ * @returns {Promise<void>}
+ */
+const sendMessage = async (data) => {
+  const [tab] = await chrome.tabs.query({
+    active: true,
+    currentWindow: true,
+  });
+
+  return new Promise((resolve) => {
+    chrome.tabs.sendMessage(tab.id, data, resolve);
+  });
+};
 
 button.addEventListener('click', async () => {
-  button.disabled = true;
+  togglePage(true);
   setText('[data-rapport]', '-');
 
-  const [tab] = await getTabs();
-
-  const data = {
+  await sendMessage({
     type: '>_CHECK_LINKS',
-  };
-
-  chrome.tabs.sendMessage(tab.id, data, () => {
-    button.disabled = false;
   });
 });
 
-chrome.runtime.onMessage.addListener((event = {}) => {
-  if (event.type === '>_RAPPORT') {
-    /** @type {TRapport} */
-    const { all, ok, warn, error } = event.detail;
+chrome.runtime.onMessage.addListener(({ type, detail } = {}) => {
+  switch (type) {
+    case '>_RAPPORT': {
+      /** @type {TRapport} */
+      const { all, ok, warn, error } = detail;
 
-    setText('#all', all);
-    setText('#ok', ok);
-    setText('#warn', warn);
-    setText('#error', error);
+      setText('#all', all);
+      setText('#ok', ok);
+      setText('#warn', warn);
+      setText('#error', error);
+      return togglePage(false);
+    }
+
+    case '>_ENABLE': {
+      return togglePage(false);
+    }
   }
+});
+
+sendMessage({
+  type: '>_PING',
 });
