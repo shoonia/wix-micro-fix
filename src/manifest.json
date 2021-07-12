@@ -29,6 +29,14 @@
       "js": [
         "content.js"
       ]
+    },
+    {
+      "matches": [
+        "https://support.wix.com/*"
+      ],
+      "js": [
+        "brokenImage.js"
+      ]
     }
   ],
   "web_accessible_resources": []
