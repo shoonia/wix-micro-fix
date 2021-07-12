@@ -1,11 +1,8 @@
-const one = (selector) => document.querySelector(selector);
-const all = (selector) => document.querySelectorAll(selector);
-
 /** @type {HTMLButtonElement} */
-const button = one('#checkLinks');
+const button = document.querySelector('#checkLinks');
 
 const setText = (selector, text) => {
-  all(selector).forEach((i) => {
+  document.querySelectorAll(selector).forEach((i) => {
     i.textContent = `${text}`;
   });
 };
@@ -34,11 +31,11 @@ const sendMessage = async (data) => {
   });
 };
 
-button.addEventListener('click', async () => {
+button.addEventListener('click', () => {
   togglePage(true);
   setText('[data-rapport]', '-');
 
-  await sendMessage({
+  sendMessage({
     type: '>_CHECK_LINKS',
   });
 });

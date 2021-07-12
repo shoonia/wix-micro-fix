@@ -38,7 +38,7 @@ const createHttpClient = () => {
       cache.set(path, code);
 
       return code;
-    } catch (error) {
+    } catch {
       return -1;
     }
   };
@@ -96,14 +96,14 @@ const checkLinks = async () => {
       rapport.ok++;
     }
 
-    if (code === 404) {
-      Object.assign(node.style, errorStyle);
-      rapport.error++;
-    }
-
-    if (code === 301) {
+    else if (code === 301) {
       Object.assign(node.style, warnStyle);
       rapport.warn++;
+    }
+
+    else if (code === 404) {
+      Object.assign(node.style, errorStyle);
+      rapport.error++;
     }
   }
 
