@@ -68,7 +68,11 @@ const getArticleLinks = (): ILinkMap => {
 const checkLinks = async (): Promise<TRapport> => {
   const linkMap: ILinkMap = getArticleLinks();
   const getHttpStatus = createHttpClient();
-  const rapport = createRapport(false);
+
+  const rapport = createRapport({
+    all: linkMap.size,
+    isFirst: false,
+  });
 
   for (const [node, path] of linkMap) {
     const code = await getHttpStatus(path);

@@ -5,7 +5,7 @@ import { Route } from '../constants';
 export const rapportModule: TMoudule = ({ on }) => {
   on('@init', () => {
     return {
-      rapport: createRapport(true),
+      rapport: createRapport(),
     };
   });
 

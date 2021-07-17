@@ -22,7 +22,7 @@ export const createCache = (): ICreateCache => {
 
       lastRapport = null;
 
-      return createRapport(true);
+      return createRapport();
     },
   };
 };

@@ -13,10 +13,11 @@ export const enum Events {
   rapport = '>_RAPPORT',
 }
 
-export const createRapport = (isFirst: boolean): TRapport => ({
+export const createRapport = (data?: Partial<TRapport>): TRapport => ({
   all: 0,
   ok: [],
   warn: [],
   error: [],
-  isFirst,
+  isFirst: true,
+  ...data,
 });
