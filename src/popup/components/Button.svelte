@@ -13,7 +13,7 @@
   button {
     transition: all 0.2s ease, visibility 0s;
     border-radius: 100px;
-    background-color: #3637F5;
+    background-color: #3637f5;
     color: #fff;
     font-size: 16px;
     cursor: pointer;
@@ -25,6 +25,6 @@
   }
 
   button:hover {
-    background: #2224E2;
+    background: #2224e2;
   }
 </style>

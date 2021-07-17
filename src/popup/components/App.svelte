@@ -29,8 +29,8 @@
   }
 
   :global(body) {
-    color: #162D3D;
-    background-color: #F0F4F7;
+    color: #162d3d;
+    background-color: #f0f4f7;
   }
 
   main {
@@ -45,7 +45,7 @@
   footer {
     height: 35px;
     padding: 5px;
-    border-top: 1px solid #B6C1CD;
+    border-top: 1px solid #b6c1cd;
     display: flex;
     align-items: center;
     justify-content: flex-end;
