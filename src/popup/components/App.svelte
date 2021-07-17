@@ -37,6 +37,9 @@
     padding: 5px;
     min-width: 250px;
     min-height: 215px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
   }
 
   footer {

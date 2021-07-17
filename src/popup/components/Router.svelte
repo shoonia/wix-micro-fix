@@ -3,7 +3,7 @@
 
   import type { IEvents, IState } from '../store/types';
   import { Route } from '../constants';
-  import LoadingPage from './LoadingPage.svelte';
+  import Loader from './Icons/Loader.svelte';
   import DashboardPage from './DashboardPage.svelte';
   import RapportPage from './RapportPage.svelte';
   import NotSupportedPage from './NotSupportedPage.svelte';
@@ -13,7 +13,7 @@
 </script>
 
 {#if $route === Route.loading}
-  <LoadingPage />
+  <Loader />
 {:else if $route === Route.dashboard}
   <DashboardPage />
 {:else if $route === Route.rapport}
