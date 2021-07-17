@@ -1,29 +1,29 @@
-/** @type {Partial<CSSStyleDeclaration>} */
-const warnStyle = {
+import { onMessage, sendMessage } from '../chrome';
+import { TRapport, Events, createRapport } from '../transport';
+import { createCache } from './cache';
+
+type ILinkMap = Map<HTMLAnchorElement, string>;
+
+const warnStyle: Partial<CSSStyleDeclaration> = {
   outline: 'rgb(255 193 7 / 80%) solid 10px',
   backgroundColor: 'rgb(255 235 60 / 45%)',
 };
 
-/** @type {Partial<CSSStyleDeclaration>} */
-const errorStyle = {
+const errorStyle: Partial<CSSStyleDeclaration> = {
   outline: 'rgb(235 30 80 / 80%) solid 10px',
   backgroundColor: 'rgba(255, 0, 0, 0.4)',
 };
 
-/**
- * @returns {(path: string) => Promise<number>}
- */
 const createHttpClient = () => {
-  /** @type {Map<string, number>} */
-  const cache = new Map();
+  const cache = new Map<string, number>();
 
   const host = (location.host === 'wix.wixanswers.com')
     ? 'wix.wixanswers.com'
     : 'support.wix.com';
 
-  return async (path) => {
+  return async (path: string): Promise<number> => {
     if (cache.has(path)) {
-      return cache.get(path);
+      return cache.get(path) ?? 0;
     }
 
     const apiUrl = `https://${host}/api/v1/helpcenter/articles/uri/${path}?locale=en`;
@@ -39,26 +39,17 @@ const createHttpClient = () => {
 
       return code;
     } catch {
-      return -1;
+      return 0;
     }
   };
 };
 
-/**
- * @param {string} href
- * @returns {string}
- */
-const getPath = (href) => {
+const getPath = (href: string): string => {
   return new URL(href).pathname.slice(12);
 };
 
-/**
- * @typedef {Map<HTMLAnchorElement, string>} LinkMap
- * @returns {LinkMap}
- */
-const getArticleLinks = () => {
-  /** @type {LinkMap} */
-  const linkMap = new Map();
+const getArticleLinks = (): ILinkMap => {
+  const linkMap: ILinkMap = new Map();
   const currentPath = getPath(location.href);
 
   document.querySelectorAll('a').forEach((a) => {
@@ -74,57 +65,60 @@ const getArticleLinks = () => {
   return linkMap;
 };
 
-/**
- * @returns {Promise<TRapport>}
- */
-const checkLinks = async () => {
-  const linkMap = getArticleLinks();
+const checkLinks = async (): Promise<TRapport> => {
+  const linkMap: ILinkMap = getArticleLinks();
   const getHttpStatus = createHttpClient();
 
-  /** @type {TRapport} */
-  const rapport = {
+  const rapport = createRapport({
     all: linkMap.size,
-    ok: 0,
-    warn: 0,
-    error: 0,
-  };
+    isFirst: false,
+  });
 
   for (const [node, path] of linkMap) {
     const code = await getHttpStatus(path);
 
     if (code === 200) {
-      rapport.ok++;
+      rapport.ok.push(path);
     }
 
     else if (code === 301) {
       Object.assign(node.style, warnStyle);
-      rapport.warn++;
+      rapport.warn.push(path);
     }
 
     else if (code === 404) {
       Object.assign(node.style, errorStyle);
-      rapport.error++;
+      rapport.error.push(path);
     }
   }
 
   return rapport;
 };
 
-chrome.runtime.onMessage.addListener(async ({ type } = {}) => {
-  switch (type) {
-    case '>_CHECK_LINKS': {
-      const rapport = await checkLinks();
+const cache = createCache();
 
-      return chrome.runtime.sendMessage({
-        type: '>_RAPPORT',
-        detail: rapport,
+onMessage((data) => {
+  switch (data?.type) {
+    case Events.checkPage: {
+      void checkLinks().then((rapport) => {
+        cache.set(rapport);
+
+        sendMessage({
+          type: Events.rapport,
+          detail: rapport,
+        });
       });
+
+      break;
     }
 
-    case '>_PING': {
-      return chrome.runtime.sendMessage({
-        type: '>_ENABLE',
+    case Events.ping: {
+      sendMessage({
+        type: Events.pong,
+        detail: cache.get(),
       });
+
+      break;
     }
   }
 });
