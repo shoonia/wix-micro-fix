@@ -1,0 +1,49 @@
+<script lang="ts">
+  import { provideStoreon } from '@storeon/svelte';
+
+  import { store } from '../store';
+  import Router from './Router.svelte';
+  import Footer from './Footer.svelte';
+
+  provideStoreon(store);
+</script>
+
+<main>
+  <Router />
+</main>
+<footer>
+  <Footer />
+</footer>
+
+<style>
+  :global(*),
+  :global(*::before),
+  :global(*::after) {
+    box-sizing: border-box;
+  }
+
+  :global(html),
+  :global(body) {
+    margin: 0;
+    padding: 0;
+  }
+
+  :global(body) {
+    color: #162D3D;
+    background-color: #F0F4F7;
+  }
+
+  main {
+    padding: 5px;
+    min-width: 250px;
+    min-height: 215px;
+  }
+
+  footer {
+    padding: 5px;
+    border-top: 1px solid #B6C1CD;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+</style>
