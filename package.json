@@ -8,7 +8,7 @@
   "scripts": {
     "start": "rollup -c -w",
     "build": "rollup -c",
-    "lint": "eslint 'src/**/*.{js,ts,svelte}' && svelte-check && stylelint 'src/**/*.svelte'",
+    "lint": "svelte-check && eslint 'src/**/*.{js,ts,svelte}' && stylelint 'src/**/*.svelte'",
     "lint:fix": "eslint 'src/**/*.{js,ts,svelte}' --fix && stylelint 'src/**/*.svelte' --fix",
     "zip": "npm run build && node zip.js"
   },
@@ -44,7 +44,7 @@
     "typescript": "^4.3.5"
   },
   "simple-git-hooks": {
-    "pre-commit": "npm run lint:fix"
+    "pre-commit": "npm run lint:fix && npx svelte-check"
   },
   "repository": "https://github.com/shoonia/wix-micro-fix.git",
   "author": "alexanderz@wix.com",
