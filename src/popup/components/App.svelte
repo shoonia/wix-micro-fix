@@ -40,6 +40,7 @@
   }
 
   footer {
+    height: 35px;
     padding: 5px;
     border-top: 1px solid #B6C1CD;
     display: flex;

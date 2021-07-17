@@ -14,9 +14,3 @@
 >
   <SlackIcon />
 </a>
-
-<style>
-  a {
-    display: inline-flex;
-  }
-</style>
