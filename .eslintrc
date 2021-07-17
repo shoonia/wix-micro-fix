@@ -41,8 +41,7 @@
     "*.js"
   ],
   "rules": {
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "linebreak-style": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
     "no-trailing-spaces": "error",
     "no-use-before-define": "error",
     "no-unused-vars": "off",

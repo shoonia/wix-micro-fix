@@ -14,12 +14,13 @@
 
 {#if $route === Route.loading}
   <Loader />
-{:else if $route === Route.dashboard}
-  <DashboardPage />
-{:else if $route === Route.rapport}
-  <RapportPage />
 {:else if $route === Route.notSupported}
   <NotSupportedPage />
+{:else if $route === Route.rapport || $route === Route.dashboard}
+  {#if $route === Route.rapport}
+    <RapportPage />
+  {/if}
+  <DashboardPage />
 {:else}
   <ErrorPage />
 {/if}

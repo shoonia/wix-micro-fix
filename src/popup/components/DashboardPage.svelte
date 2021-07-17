@@ -15,6 +15,15 @@
   };
 </script>
 
-<Button onClick={handleClick}>
-  Check Page
-</Button>
+<div>
+  <Button onClick={handleClick}>
+    Check Page
+  </Button>
+</div>
+
+<style>
+  div {
+    display: grid;
+    justify-content: center;
+  }
+</style>
