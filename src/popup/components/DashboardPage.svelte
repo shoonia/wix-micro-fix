@@ -3,8 +3,9 @@
 
   import type { IState, IEvents } from '../store/types';
   import { Route } from '../constants';
-  import { sendTabMessage } from '../../chrome';
   import { Events } from '../../transport';
+  import { sendTabMessage } from '../../chrome';
+  import Button from './Button.svelte';
 
   const { dispatch } = useStoreon<IState, IEvents>();
 
@@ -14,9 +15,6 @@
   };
 </script>
 
-<button
-  type="button"
-  on:click={handleClick}
->
+<Button onClick={handleClick}>
   Check Page
-</button>
+</Button>
