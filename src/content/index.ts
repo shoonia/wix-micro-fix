@@ -1,5 +1,6 @@
 import { onMessage, sendMessage } from '../chrome';
 import { TRapport, Events, createRapport } from '../transport';
+import { createCache } from './cache';
 
 type ILinkMap = Map<HTMLAnchorElement, string>;
 
@@ -90,13 +91,13 @@ const checkLinks = async (): Promise<TRapport> => {
   return rapport;
 };
 
-let lastRapport = createRapport(true);
+const cache = createCache();
 
 onMessage((data) => {
   switch (data?.type) {
     case Events.checkPage: {
       void checkLinks().then((rapport) => {
-        lastRapport = rapport;
+        cache.set(rapport);
 
         sendMessage({
           type: Events.rapport,
@@ -110,7 +111,7 @@ onMessage((data) => {
     case Events.ping: {
       sendMessage({
         type: Events.pong,
-        detail: lastRapport,
+        detail: cache.get(),
       });
 
       break;
