@@ -1,6 +1,7 @@
 import { onMessage, sendMessage } from '../chrome';
 import { TRapport, Events, createRapport } from '../transport';
 import { createCache } from './cache';
+import { checkImages } from './image';
 
 type ILinkMap = Map<HTMLAnchorElement, string>;
 
@@ -48,12 +49,16 @@ const getPath = (href: string): string => {
   return new URL(href).pathname.slice(12);
 };
 
+const isArticle = (href: string): boolean => {
+  return href.startsWith('https://support.wix.com/en/article/');
+};
+
 const getArticleLinks = (): ILinkMap => {
   const linkMap: ILinkMap = new Map();
   const currentPath = getPath(location.href);
 
   document.querySelectorAll('a').forEach((a) => {
-    if (a.href.startsWith('https://support.wix.com/en/article/')) {
+    if (isArticle(a.href)) {
       const path = getPath(a.href);
 
       if (currentPath !== path) {
@@ -65,13 +70,16 @@ const getArticleLinks = (): ILinkMap => {
   return linkMap;
 };
 
-const checkLinks = async (): Promise<TRapport> => {
+const checkPage = async (): Promise<TRapport> => {
   const linkMap: ILinkMap = getArticleLinks();
   const getHttpStatus = createHttpClient();
+
+  const images = isArticle(location.href) ? checkImages() : 0;
 
   const rapport = createRapport({
     all: linkMap.size,
     isFirst: false,
+    images,
   });
 
   for (const [node, path] of linkMap) {
@@ -100,7 +108,7 @@ const cache = createCache();
 onMessage((data) => {
   switch (data?.type) {
     case Events.checkPage: {
-      void checkLinks().then((rapport) => {
+      void checkPage().then((rapport) => {
         cache.set(rapport);
 
         sendMessage({

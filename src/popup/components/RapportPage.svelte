@@ -6,42 +6,60 @@
   const { rapport } = useStoreon<IState, IEvents>('rapport');
 </script>
 
-<div>
-  <table>
-    <caption>Links</caption>
-    <tr>
-      <th>All</th>
-      <th>Ok</th>
-      <th>Warn</th>
-      <th>Error</th>
-    </tr>
-    <tr>
-      <td>
-        {$rapport.all}
-      </td>
-      <td class="ok">
-        {$rapport.ok.length}
-      </td>
-      <td class="warn">
-        {$rapport.warn.length}
-      </td>
-      <td class="error">
-        {$rapport.error.length}
-      </td>
-    </tr>
-  </table>
-</div>
+<table>
+  <tr>
+    <th colspan="4">
+      Links
+    </th>
+  </tr>
+  <tr>
+    <th>All</th>
+    <th>Ok</th>
+    <th>Warn</th>
+    <th>Error</th>
+  </tr>
+  <tr>
+    <td>
+      {$rapport.all}
+    </td>
+    <td class="ok">
+      {$rapport.ok.length}
+    </td>
+    <td class="warn">
+      {$rapport.warn.length}
+    </td>
+    <td class="error">
+      {$rapport.error.length}
+    </td>
+  </tr>
+</table>
+
+{#if $rapport.images > 0}
+<table>
+  <tr>
+    <th>
+      Broken Images
+    </th>
+  </tr>
+  <tr>
+    <td class="error">
+      {$rapport.images}
+    </td>
+  </tr>
+</table>
+{/if}
 
 <style>
   table {
     display: block;
     overflow: auto;
-    width: 100%;
     font-size: 16px;
   }
 
   caption {
     margin-bottom: 10px;
+    white-space: nowrap;
+    text-align: left;
   }
 
   th,

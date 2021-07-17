@@ -4,6 +4,7 @@ export interface TRapport {
   error: string[];
   warn: string[];
   isFirst: boolean;
+  images: number;
 }
 
 export const enum Events {
@@ -19,5 +20,6 @@ export const createRapport = (data?: Partial<TRapport>): TRapport => ({
   warn: [],
   error: [],
   isFirst: true,
+  images: 0,
   ...data,
 });
