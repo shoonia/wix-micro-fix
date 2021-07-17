@@ -5,6 +5,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { babel } from '@rollup/plugin-babel';
 import css from 'rollup-plugin-css-only';
 import replace from '@rollup/plugin-replace';
+import { terser } from 'rollup-plugin-terser';
 import { emptyDirSync, copySync, writeJSONSync } from 'fs-extra';
 
 import pkg from './package.json';
@@ -110,6 +111,7 @@ export default [
         output: 'popup.css',
       }),
       bablePlugin,
+      isProd && terser(),
     ],
     watch: {
       clearScreen: false,
@@ -127,6 +129,7 @@ export default [
       }),
       commonjs(),
       bablePlugin,
+      isProd && terser(),
     ],
     watch: {
       clearScreen: false,
