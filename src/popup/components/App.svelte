@@ -34,9 +34,10 @@
   }
 
   main {
-    padding: 5px;
+    padding: 10px 5px;
+    gap: 10px;
     min-width: 250px;
-    min-height: 215px;
+    min-height: 180px;
     display: grid;
     align-items: center;
     justify-content: center;

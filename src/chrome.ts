@@ -1,9 +1,9 @@
 /// <reference types="chrome"/>
-import type { Events, TRapport } from './transport';
+import type { Events, TReport } from './transport';
 
 interface IMessage {
   type: Events;
-  detail?: TRapport;
+  detail?: TReport;
 }
 
 export const sendTabMessage = async (message?: IMessage): Promise<void> => {

@@ -16,15 +16,15 @@ export const messageModule: TMoudule = ({ dispatch }) => {
         if (detail?.isFirst) {
           dispatch('route/change', Route.dashboard);
         } else {
-          dispatch('rapport/update', detail);
+          dispatch('report/update', detail);
         }
 
         clearTimeout(timeout);
         break;
       }
 
-      case Events.rapport: {
-        dispatch('rapport/update', data.detail);
+      case Events.report: {
+        dispatch('report/update', data.detail);
         break;
       }
     }

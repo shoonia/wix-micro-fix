@@ -3,7 +3,7 @@
 
   import type { IEvents, IState } from '../store/types';
 
-  const { rapport } = useStoreon<IState, IEvents>('rapport');
+  const { report } = useStoreon<IState, IEvents>('report');
 </script>
 
 <table>
@@ -18,23 +18,23 @@
   </tr>
   <tr>
     <td>
-      {$rapport.all}
+      {$report.all}
     </td>
     <td class="ok">
-      {$rapport.ok.length}
+      {$report.ok.length}
     </td>
     <td class="warn">
-      {$rapport.warn.length}
+      {$report.warn.length}
     </td>
     <td class="error">
-      {$rapport.error.length}
+      {$report.error.length}
     </td>
   </tr>
 </table>
 
-{#if $rapport.images > 0}
+{#if $report.images > 0}
   <div class="images">
-    Broken Images <code class="error badge">{$rapport.images}</code>
+    Broken Images <code class="error badge">{$report.images}</code>
   </div>
 {/if}
 

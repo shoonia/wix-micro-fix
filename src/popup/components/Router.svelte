@@ -5,7 +5,7 @@
   import { Route } from '../constants';
   import Loader from './Icons/Loader.svelte';
   import DashboardPage from './DashboardPage.svelte';
-  import RapportPage from './RapportPage.svelte';
+  import ReportPage from './ReportPage.svelte';
   import NotSupportedPage from './NotSupportedPage.svelte';
   import ErrorPage from './ErrorPage.svelte';
 
@@ -16,9 +16,9 @@
   <Loader />
 {:else if $route === Route.notSupported}
   <NotSupportedPage />
-{:else if $route === Route.rapport || $route === Route.dashboard}
-  {#if $route === Route.rapport}
-    <RapportPage />
+{:else if $route === Route.report || $route === Route.dashboard}
+  {#if $route === Route.report}
+    <ReportPage />
   {/if}
   <DashboardPage />
 {:else}

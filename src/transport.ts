@@ -1,4 +1,4 @@
-export interface TRapport {
+export interface TReport {
   all: number;
   ok: string[];
   error: string[];
@@ -11,10 +11,10 @@ export const enum Events {
   ping = '>_PING',
   pong = '>_PONG',
   checkPage = '>_CHECK_PAGE',
-  rapport = '>_RAPPORT',
+  report = '>_REPORT',
 }
 
-export const createRapport = (data?: Partial<TRapport>): TRapport => ({
+export const createReport = (data?: Partial<TReport>): TReport => ({
   all: 0,
   ok: [],
   warn: [],

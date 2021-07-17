@@ -1,6 +1,6 @@
 export const enum Route {
   loading = 'loading',
-  rapport = 'rapport',
+  report = 'report',
   dashboard = 'dashboard',
   notSupported = 'notSupported',
 }

@@ -1,15 +1,15 @@
 import type { StoreonModule } from 'storeon';
 
-import type { TRapport } from '../../transport';
+import type { TReport } from '../../transport';
 import type { Route } from '../constants';
 
 export interface IState {
-  rapport: TRapport;
+  report: TReport;
   route: Route;
 }
 
 export interface IEvents {
-  'rapport/update': TRapport;
+  'report/update': TReport;
   'route/change': Route;
 }
 

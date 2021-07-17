@@ -1,5 +1,5 @@
 import { onMessage, sendMessage } from '../chrome';
-import { TRapport, Events, createRapport } from '../transport';
+import { TReport, Events, createReport } from '../transport';
 import { createCache } from './cache';
 import { checkImages } from './image';
 
@@ -70,13 +70,13 @@ const getArticleLinks = (): ILinkMap => {
   return linkMap;
 };
 
-const checkPage = async (): Promise<TRapport> => {
+const checkPage = async (): Promise<TReport> => {
   const linkMap: ILinkMap = getArticleLinks();
   const getHttpStatus = createHttpClient();
 
   const images = isArticle(location.href) ? checkImages() : 0;
 
-  const rapport = createRapport({
+  const report = createReport({
     all: linkMap.size,
     isFirst: false,
     images,
@@ -86,21 +86,21 @@ const checkPage = async (): Promise<TRapport> => {
     const code = await getHttpStatus(path);
 
     if (code === 200) {
-      rapport.ok.push(path);
+      report.ok.push(path);
     }
 
     else if (code === 301) {
       Object.assign(node.style, warnStyle);
-      rapport.warn.push(path);
+      report.warn.push(path);
     }
 
     else if (code === 404) {
       Object.assign(node.style, errorStyle);
-      rapport.error.push(path);
+      report.error.push(path);
     }
   }
 
-  return rapport;
+  return report;
 };
 
 const cache = createCache();
@@ -108,12 +108,12 @@ const cache = createCache();
 onMessage((data) => {
   switch (data?.type) {
     case Events.checkPage: {
-      void checkPage().then((rapport) => {
-        cache.set(rapport);
+      void checkPage().then((report) => {
+        cache.set(report);
 
         sendMessage({
-          type: Events.rapport,
-          detail: rapport,
+          type: Events.report,
+          detail: report,
         });
       });
 

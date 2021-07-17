@@ -1,28 +1,28 @@
-import { createRapport, TRapport } from '../transport';
+import { createReport, TReport } from '../transport';
 
 interface ICreateCache {
-  set(rapport: TRapport): void;
-  get(): TRapport;
+  set(report: TReport): void;
+  get(): TReport;
 }
 
 export const createCache = (): ICreateCache => {
   let href: string;
-  let lastRapport: TRapport | null;
+  let lastReport: TReport | null;
 
   return {
-    set(rapport: TRapport): void {
+    set(report: TReport): void {
       href = location.href;
-      lastRapport = rapport;
+      lastReport = report;
     },
 
-    get(): TRapport {
-      if (lastRapport !== null && location.href === href) {
-        return lastRapport;
+    get(): TReport {
+      if (lastReport !== null && location.href === href) {
+        return lastReport;
       }
 
-      lastRapport = null;
+      lastReport = null;
 
-      return createRapport();
+      return createReport();
     },
   };
 };
