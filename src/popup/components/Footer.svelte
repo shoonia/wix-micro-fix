@@ -1,6 +1,5 @@
 <script lang="ts">
   import { to } from '../../chrome';
-  import SlackIcon from './Icons/SlackIcon.svelte';
 
   const handleClick = (event: MouseEvent): void => {
     event.preventDefault();
@@ -12,5 +11,11 @@
   href="/"
   on:click={handleClick}
 >
-  <SlackIcon />
+  Feedback
 </a>
+
+<style>
+  a {
+    color: #3899ec;
+  }
+</style>
