@@ -7,11 +7,9 @@
 </script>
 
 <table>
-  <tr>
-    <th colspan="4">
-      Links
-    </th>
-  </tr>
+  <caption>
+    Links
+  </caption>
   <tr>
     <th>All</th>
     <th>Ok</th>
@@ -35,18 +33,9 @@
 </table>
 
 {#if $rapport.images > 0}
-<table>
-  <tr>
-    <th>
-      Broken Images
-    </th>
-  </tr>
-  <tr>
-    <td class="error">
-      {$rapport.images}
-    </td>
-  </tr>
-</table>
+  <div class="images">
+    Broken Images <code class="error badge">{$rapport.images}</code>
+  </div>
 {/if}
 
 <style>
@@ -56,14 +45,17 @@
     font-size: 16px;
   }
 
-  caption {
+  caption,
+  .images {
     margin-bottom: 10px;
     white-space: nowrap;
     text-align: left;
+    font-size: 16px;
   }
 
   th,
-  td {
+  td,
+  .badge {
     padding: 3px 10px;
     text-align: center;
     background-color: #fff;
