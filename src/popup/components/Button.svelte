@@ -22,6 +22,8 @@
     min-width: 10px;
     min-height: 10px;
     padding: 10px 25px;
+    user-select: none;
+    white-space: normal;
   }
 
   button:hover {

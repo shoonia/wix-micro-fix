@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {useStoreon} from '@storeon/svelte';
+  import { useStoreon } from '@storeon/svelte';
 
   import type { IEvents, IState } from '../store/types';
 

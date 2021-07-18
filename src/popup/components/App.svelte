@@ -45,7 +45,7 @@
 
   footer {
     height: 35px;
-    padding: 5px;
+    padding: 5px 10px;
     border-top: 1px solid #b6c1cd;
     display: flex;
     align-items: center;
