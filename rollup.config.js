@@ -13,6 +13,8 @@ import pkg from './package.json';
 const isProd = !process.env.ROLLUP_WATCH;
 const isDev = !isProd;
 
+process.env.NODE_ENV = isProd ? 'production' : 'development';
+
 emptyDirSync('./build');
 copySync('./static', './build');
 writeJSONSync('./build/manifest.json', {
@@ -94,9 +96,7 @@ export default [
       commonjs(),
       replace({
         preventAssignment: true,
-        'process.env.NODE_ENV': JSON.stringify(
-          isProd ? 'production' : 'development',
-        ),
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       }),
       svelte({
         compilerOptions: {
