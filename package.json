@@ -2,7 +2,7 @@
   "name": "wix-micro-fix",
   "title": "Wix micro fix",
   "description": "Chrome extension",
-  "version": "3.3.0",
+  "version": "4.0.0",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
@@ -29,7 +29,7 @@
     "@typescript-eslint/parser": "^4.28.3",
     "babel-plugin-const-enum": "^1.1.0",
     "cross-zip": "^4.0.0",
-    "eslint": "^7.30.0",
+    "eslint": "^7.31.0",
     "eslint-plugin-svelte3": "^3.2.0",
     "fs-extra": "^10.0.0",
     "rollup": "^2.53.2",
